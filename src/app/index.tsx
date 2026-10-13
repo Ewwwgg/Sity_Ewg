@@ -95,11 +95,16 @@ const styles = StyleSheet.create({
   linkButton: {
     alignItems: "center",
     backgroundColor: colors.surface,
-    borderColor: colors.border,
-    borderRadius: 18,
-    borderWidth: 1,
+    borderLeftColor: colors.accent,
+    borderLeftWidth: 6,
+    borderRadius: 12,
     flexDirection: "row",
     padding: 16,
+    shadowColor: "#1B3A6B",
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.12,
+    shadowRadius: 8,
+    elevation: 3,
   },
   linkIcon: {
     fontSize: 30,
@@ -119,7 +124,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   arrow: {
-    color: colors.accent,
+    color: colors.primary,
     fontSize: 32,
   },
   pressed: {
