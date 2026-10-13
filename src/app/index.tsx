@@ -1,5 +1,5 @@
 import { Link } from "expo-router";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { colors } from "@/theme";
 
@@ -7,6 +7,10 @@ export default function HomeScreen() {
   return (
     <View style={styles.screen}>
       <SafeAreaView style={styles.banner} edges={["top"]}>
+        <Image
+          source={require("../../assets/images/react-logo.png")}
+          style={styles.logo}
+        />
         <Text style={styles.greeting}>Привіт, я Yehor 👋</Text>
         <Text style={styles.tagline}>
           Це мій міні-путівник по Києву та коротка візитка
@@ -19,11 +23,7 @@ export default function HomeScreen() {
           <Link href="/city" asChild>
             <Pressable
               accessibilityRole="link"
-              style={({ pressed }) => [
-                styles.tile,
-                styles.tileCity,
-                pressed && styles.pressed,
-              ]}
+              style={styles.tileCity}
             >
               <Text style={styles.tileIcon}>🗺️</Text>
               <Text style={styles.tileTitle}>Моє місто</Text>
@@ -34,11 +34,7 @@ export default function HomeScreen() {
           <Link href="/about" asChild>
             <Pressable
               accessibilityRole="link"
-              style={({ pressed }) => [
-                styles.tile,
-                styles.tileAbout,
-                pressed && styles.pressed,
-              ]}
+              style={styles.tileAbout}
             >
               <Text style={styles.tileIcon}>🙋‍♂️</Text>
               <Text style={styles.tileTitle}>Про мене</Text>
@@ -50,6 +46,19 @@ export default function HomeScreen() {
     </View>
   );
 }
+
+const tileBase = {
+  borderRadius: 24,
+  flex: 1,
+  minHeight: 170,
+  justifyContent: "flex-end",
+  padding: 18,
+  shadowColor: colors.dark,
+  shadowOffset: { width: 0, height: 6 },
+  shadowOpacity: 0.2,
+  shadowRadius: 10,
+  elevation: 5,
+} as const;
 
 const styles = StyleSheet.create({
   screen: {
@@ -63,6 +72,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingTop: 40,
   },
+  logo: {
+    height: 56,
+    marginBottom: 16,
+    width: 56,
+  },
   greeting: {
     color: colors.sand,
     fontSize: 34,
@@ -70,7 +84,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   tagline: {
-    color: "#D9E4E2",
+    color: "#FFFFFF",
     fontSize: 16,
     lineHeight: 24,
   },
@@ -90,22 +104,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 14,
   },
-  tile: {
-    borderRadius: 24,
-    flex: 1,
-    minHeight: 170,
-    justifyContent: "flex-end",
-    padding: 18,
-    shadowColor: colors.dark,
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.2,
-    shadowRadius: 10,
-    elevation: 5,
-  },
   tileCity: {
+    ...tileBase,
     backgroundColor: colors.teal,
   },
   tileAbout: {
+    ...tileBase,
     backgroundColor: colors.coral,
   },
   tileIcon: {
@@ -119,12 +123,8 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   tileHint: {
-    color: "rgba(255,255,255,0.85)",
-    fontSize: 13,
-    lineHeight: 18,
-  },
-  pressed: {
-    opacity: 0.85,
-    transform: [{ scale: 0.97 }],
+    color: "#FFFFFF",
+    fontSize: 14,
+    lineHeight: 19,
   },
 });

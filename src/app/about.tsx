@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     lineHeight: 60,
   },
   bio: {
-    color: "#E8EFED",
+    color: "#FFFFFF",
     fontSize: 15,
     lineHeight: 24,
   },
