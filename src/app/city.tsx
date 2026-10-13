@@ -6,6 +6,8 @@ const places = [
   {
     id: "1",
     icon: "⛪",
+    tag: "Історія",
+    tint: "#2D6A6A",
     name: "Софійський собор",
     description:
       "Одна з найдавніших пам’яток Києва. Собор відомий старовинними мозаїками та фресками.",
@@ -13,6 +15,8 @@ const places = [
   {
     id: "2",
     icon: "🎨",
+    tag: "Мистецтво",
+    tint: "#E07A5F",
     name: "Андріївський узвіз",
     description:
       "Історична вулиця з музеями, галереями та майстернями. Тут завжди відчувається творча атмосфера міста.",
@@ -20,6 +24,8 @@ const places = [
   {
     id: "3",
     icon: "🏛️",
+    tag: "Пам’ятка",
+    tint: "#8A6FB0",
     name: "Києво-Печерська лавра",
     description:
       "Великий монастирський комплекс над Дніпром. Це важлива історична та духовна пам’ятка України.",
@@ -27,6 +33,8 @@ const places = [
   {
     id: "4",
     icon: "🌳",
+    tag: "Відпочинок",
+    tint: "#5B9A5B",
     name: "Володимирська гірка",
     description:
       "Затишний парк із чудовим видом на Поділ і Дніпро. Гарне місце для прогулянок у будь-яку пору року.",
@@ -42,17 +50,23 @@ export default function CityScreen() {
         contentContainerStyle={styles.content}
         ListHeaderComponent={
           <View style={styles.header}>
-            <Text style={styles.cityIcon}>🏙️</Text>
+            <Text style={styles.kicker}>МІСТО</Text>
             <Text style={styles.title}>Київ</Text>
             <Text style={styles.subtitle}>
-              Місто з багатою історією, зеленими парками та красивими краєвидами
+              Чотири місця, з яких я б почав знайомство з містом
             </Text>
           </View>
         }
-        renderItem={({ item }) => (
+        renderItem={({ item, index }) => (
           <View style={styles.card}>
-            <Text style={styles.cardIcon}>{item.icon}</Text>
-            <View style={styles.cardContent}>
+            <View style={[styles.cover, { backgroundColor: item.tint }]}>
+              <Text style={styles.coverIcon}>{item.icon}</Text>
+              <Text style={styles.number}>0{index + 1}</Text>
+            </View>
+            <View style={styles.info}>
+              <View style={styles.tag}>
+                <Text style={styles.tagText}>{item.tag}</Text>
+              </View>
               <Text style={styles.placeName}>{item.name}</Text>
               <Text style={styles.description}>{item.description}</Text>
             </View>
@@ -68,66 +82,79 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   content: {
+    gap: 18,
     padding: 20,
-    paddingBottom: 30,
-    gap: 14,
   },
   header: {
-    alignItems: "center",
-    marginBottom: 20,
+    marginBottom: 6,
   },
-  cityIcon: {
-    fontSize: 58,
-    marginBottom: 8,
+  kicker: {
+    color: colors.coral,
+    fontSize: 12,
+    fontWeight: "800",
+    letterSpacing: 2,
+    marginBottom: 4,
   },
   title: {
-    color: colors.primary,
-    fontSize: 34,
-    fontWeight: "800",
-    marginBottom: 8,
-    textAlign: "center",
+    color: colors.dark,
+    fontSize: 40,
+    fontWeight: "900",
   },
   subtitle: {
-    color: colors.secondary,
-    fontSize: 16,
-    lineHeight: 23,
-    maxWidth: 520,
-    textAlign: "center",
+    color: colors.muted,
+    fontSize: 15,
+    lineHeight: 22,
+    marginTop: 4,
   },
   card: {
-    flexDirection: "row",
     backgroundColor: colors.surface,
-    borderLeftColor: colors.accent,
-    borderLeftWidth: 6,
-    borderRadius: 12,
-    padding: 18,
-    shadowColor: "#1B3A6B",
-    shadowOffset: { width: 0, height: 3 },
+    borderRadius: 20,
+    overflow: "hidden",
+    shadowColor: colors.dark,
+    shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.12,
-    shadowRadius: 8,
-    elevation: 3,
+    shadowRadius: 10,
+    elevation: 4,
   },
-  cardIcon: {
-    fontSize: 30,
-    marginRight: 14,
-    backgroundColor: colors.accentSoft,
-    borderRadius: 12,
-    height: 52,
-    lineHeight: 52,
-    textAlign: "center",
-    width: 52,
+  cover: {
+    alignItems: "center",
+    flexDirection: "row",
+    height: 84,
+    justifyContent: "space-between",
+    paddingHorizontal: 20,
   },
-  cardContent: {
-    flex: 1,
+  coverIcon: {
+    fontSize: 44,
+  },
+  number: {
+    color: "rgba(255,255,255,0.55)",
+    fontSize: 44,
+    fontWeight: "900",
+  },
+  info: {
+    padding: 18,
+  },
+  tag: {
+    alignSelf: "flex-start",
+    backgroundColor: colors.background,
+    borderRadius: 20,
+    marginBottom: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+  },
+  tagText: {
+    color: colors.teal,
+    fontSize: 12,
+    fontWeight: "700",
   },
   placeName: {
-    color: colors.primary,
-    fontSize: 19,
-    fontWeight: "700",
-    marginBottom: 7,
+    color: colors.dark,
+    fontSize: 20,
+    fontWeight: "800",
+    marginBottom: 6,
   },
   description: {
-    color: colors.body,
+    color: colors.text,
     fontSize: 15,
     lineHeight: 22,
   },

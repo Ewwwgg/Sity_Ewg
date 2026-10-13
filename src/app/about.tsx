@@ -1,27 +1,30 @@
-import { Link } from "expo-router";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { colors } from "@/theme";
 
 const interests = [
-  { id: "1", icon: "💻", label: "Програмування" },
-  { id: "2", icon: "📱", label: "Мобільні застосунки" },
-  { id: "3", icon: "🎵", label: "Музика" },
-  { id: "4", icon: "🚶", label: "Прогулянки та подорожі" },
+  { id: "1", icon: "💻", label: "Програмування", level: 0.6 },
+  { id: "2", icon: "📱", label: "Мобільні застосунки", level: 0.4 },
+  { id: "3", icon: "🎵", label: "Музика", level: 0.85 },
+  { id: "4", icon: "🚶", label: "Прогулянки", level: 0.9 },
 ];
 
 export default function AboutScreen() {
   return (
     <SafeAreaView style={styles.safeArea} edges={["bottom"]}>
       <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.title}>Yehor</Text>
+        <View style={styles.cover} />
         <View style={styles.avatar}>
           <Text style={styles.avatarText}>Y</Text>
         </View>
-        <Text style={styles.role}>Майбутній React Native розробник</Text>
-        <View style={styles.card}>
-          <Text style={styles.sectionTitle}>👋 Коротко про мене</Text>
-          <Text style={styles.body}>
+        <View style={styles.identity}>
+          <Text style={styles.name}>Yehor</Text>
+          <Text style={styles.role}>Початківець у React Native</Text>
+        </View>
+
+        <View style={styles.quote}>
+          <Text style={styles.quoteMark}>“</Text>
+          <Text style={styles.bio}>
             У вільний час я люблю цікавитися технологіями, слухати музику та
             гуляти. Мені подобається дізнаватися, як працюють цифрові продукти,
             і пробувати створювати власні. Я вирішив вивчати React Native, щоб
@@ -30,12 +33,17 @@ export default function AboutScreen() {
           </Text>
         </View>
 
-        <Text style={styles.sectionTitle}>✨ Навички та інтереси</Text>
-        <View style={styles.interests}>
+        <Text style={styles.sectionTitle}>Навички та інтереси</Text>
+        <View style={styles.grid}>
           {interests.map((item) => (
-            <View key={item.id} style={styles.interestCard}>
-              <Text style={styles.interestIcon}>{item.icon}</Text>
-              <Text style={styles.interestText}>{item.label}</Text>
+            <View key={item.id} style={styles.chip}>
+              <Text style={styles.chipIcon}>{item.icon}</Text>
+              <Text style={styles.chipLabel}>{item.label}</Text>
+              <View style={styles.bar}>
+                <View
+                  style={[styles.barFill, { width: `${item.level * 100}%` }]}
+                />
+              </View>
             </View>
           ))}
         </View>
@@ -49,92 +57,104 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   content: {
-    padding: 20,
     paddingBottom: 32,
   },
-  title: {
-    color: colors.primary,
-    fontSize: 32,
-    fontWeight: "800",
-    marginBottom: 16,
-    textAlign: "center",
+  cover: {
+    backgroundColor: colors.teal,
+    height: 120,
   },
   avatar: {
     alignItems: "center",
     alignSelf: "center",
-    backgroundColor: colors.accent,
-    borderColor: colors.primary,
-    borderRadius: 56,
-    borderWidth: 4,
-    height: 112,
+    backgroundColor: colors.coral,
+    borderColor: colors.background,
+    borderRadius: 60,
+    borderWidth: 6,
+    height: 120,
     justifyContent: "center",
-    marginBottom: 16,
-    shadowColor: colors.accent,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 10,
-    elevation: 6,
-    width: 112,
+    marginTop: -60,
+    width: 120,
   },
   avatarText: {
-    color: colors.primary,
-    fontSize: 38,
+    color: "#FFFFFF",
+    fontSize: 48,
+    fontWeight: "900",
+  },
+  identity: {
+    alignItems: "center",
+    marginBottom: 20,
+    marginTop: 12,
+  },
+  name: {
+    color: colors.dark,
+    fontSize: 30,
     fontWeight: "900",
   },
   role: {
-    color: colors.secondary,
-    fontSize: 16,
-    marginBottom: 22,
-    textAlign: "center",
+    color: colors.muted,
+    fontSize: 15,
+    marginTop: 2,
+  },
+  quote: {
+    backgroundColor: colors.dark,
+    borderRadius: 22,
+    marginHorizontal: 20,
+    padding: 22,
+    paddingTop: 10,
+  },
+  quoteMark: {
+    color: colors.sand,
+    fontSize: 56,
+    fontWeight: "900",
+    lineHeight: 60,
+  },
+  bio: {
+    color: "#E8EFED",
+    fontSize: 15,
+    lineHeight: 24,
   },
   sectionTitle: {
-    color: colors.primary,
-    fontSize: 21,
-    fontWeight: "700",
-    marginBottom: 14,
+    color: colors.dark,
+    fontSize: 20,
+    fontWeight: "800",
+    marginBottom: 12,
+    marginHorizontal: 20,
+    marginTop: 28,
   },
-  card: {
-    backgroundColor: colors.surface,
-    borderLeftColor: colors.primary,
-    borderLeftWidth: 6,
-    borderRadius: 12,
-    marginBottom: 24,
-    padding: 20,
-    shadowColor: "#1B3A6B",
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.12,
-    shadowRadius: 8,
-    elevation: 3,
-  },
-  body: {
-    color: colors.body,
-    fontSize: 16,
-    lineHeight: 25,
-  },
-  interests: {
-    gap: 10,
-  },
-  interestCard: {
-    alignItems: "center",
+  grid: {
     flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 12,
+    paddingHorizontal: 20,
+  },
+  chip: {
     backgroundColor: colors.surface,
-    borderLeftColor: colors.accent,
-    borderLeftWidth: 6,
-    borderRadius: 12,
-    padding: 16,
-    shadowColor: "#1B3A6B",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 2,
+    borderColor: colors.sand,
+    borderRadius: 18,
+    borderWidth: 2,
+    flexGrow: 1,
+    flexBasis: "45%",
+    padding: 14,
   },
-  interestIcon: {
+  chipIcon: {
     fontSize: 28,
-    marginRight: 14,
+    marginBottom: 8,
   },
-  interestText: {
-    color: colors.primary,
-    fontSize: 17,
-    fontWeight: "600",
+  chipLabel: {
+    color: colors.text,
+    fontSize: 14,
+    fontWeight: "700",
+    marginBottom: 10,
+  },
+  bar: {
+    backgroundColor: colors.background,
+    borderRadius: 4,
+    height: 6,
+    overflow: "hidden",
+  },
+  barFill: {
+    backgroundColor: colors.coral,
+    borderRadius: 4,
+    height: 6,
   },
 });

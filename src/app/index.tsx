@@ -5,129 +5,126 @@ import { colors } from "@/theme";
 
 export default function HomeScreen() {
   return (
-    <SafeAreaView style={styles.safeArea} edges={["bottom"]}>
-      <View style={styles.container}>
-        <View style={styles.hero}>
-          <Text style={styles.emoji}>🏙️</Text>
-          <Text style={styles.title}>Вітаю!</Text>
-          <Text style={styles.subtitle}>
-            Невеликий застосунок про Київ та мої інтереси
-          </Text>
-        </View>
+    <View style={styles.screen}>
+      <SafeAreaView style={styles.banner} edges={["top"]}>
+        <Text style={styles.greeting}>Привіт, я Yehor 👋</Text>
+        <Text style={styles.tagline}>
+          Це мій міні-путівник по Києву та коротка візитка
+        </Text>
+      </SafeAreaView>
 
-        <View style={styles.links}>
+      <View style={styles.body}>
+        <Text style={styles.label}>Куди підемо?</Text>
+        <View style={styles.tiles}>
           <Link href="/city" asChild>
             <Pressable
               accessibilityRole="link"
               style={({ pressed }) => [
-                styles.linkButton,
+                styles.tile,
+                styles.tileCity,
                 pressed && styles.pressed,
               ]}
             >
-              <Text style={styles.linkIcon}>📍</Text>
-              <View style={styles.linkCopy}>
-                <Text style={styles.linkTitle}>Моє місто</Text>
-                <Text style={styles.linkText}>Визначні місця Києва</Text>
-              </View>
-              <Text style={styles.arrow}>›</Text>
+              <Text style={styles.tileIcon}>🗺️</Text>
+              <Text style={styles.tileTitle}>Моє місто</Text>
+              <Text style={styles.tileHint}>Місця, які варто побачити</Text>
             </Pressable>
           </Link>
+
           <Link href="/about" asChild>
             <Pressable
               accessibilityRole="link"
               style={({ pressed }) => [
-                styles.linkButton,
+                styles.tile,
+                styles.tileAbout,
                 pressed && styles.pressed,
               ]}
             >
-              <Text style={styles.linkIcon}>👤</Text>
-              <View style={styles.linkCopy}>
-                <Text style={styles.linkTitle}>Про мене</Text>
-                <Text style={styles.linkText}>Знайомство та мої інтереси</Text>
-              </View>
-              <Text style={styles.arrow}>›</Text>
+              <Text style={styles.tileIcon}>🙋‍♂️</Text>
+              <Text style={styles.tileTitle}>Про мене</Text>
+              <Text style={styles.tileHint}>Хто я і що люблю</Text>
             </Pressable>
           </Link>
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
+  screen: {
     flex: 1,
   },
-  container: {
-    flex: 1,
+  banner: {
+    backgroundColor: colors.dark,
+    borderBottomLeftRadius: 36,
+    borderBottomRightRadius: 36,
+    paddingBottom: 40,
     paddingHorizontal: 24,
+    paddingTop: 40,
   },
-  hero: {
-    alignItems: "center",
-    flex: 1,
-    justifyContent: "center",
-  },
-  emoji: {
-    fontSize: 64,
-    marginBottom: 16,
-  },
-  title: {
-    color: colors.primary,
-    fontSize: 38,
+  greeting: {
+    color: colors.sand,
+    fontSize: 34,
     fontWeight: "800",
     marginBottom: 10,
-    textAlign: "center",
   },
-  subtitle: {
-    color: colors.secondary,
-    fontSize: 17,
-    lineHeight: 25,
-    maxWidth: 360,
-    textAlign: "center",
+  tagline: {
+    color: "#D9E4E2",
+    fontSize: 16,
+    lineHeight: 24,
   },
-  links: {
-    alignSelf: "stretch",
-    gap: 12,
-    maxWidth: 320,
-    paddingBottom: 20,
-    width: "100%",
-  },
-  linkButton: {
-    alignItems: "center",
-    backgroundColor: colors.surface,
-    borderLeftColor: colors.accent,
-    borderLeftWidth: 6,
-    borderRadius: 12,
-    flexDirection: "row",
-    padding: 16,
-    shadowColor: "#1B3A6B",
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.12,
-    shadowRadius: 8,
-    elevation: 3,
-  },
-  linkIcon: {
-    fontSize: 30,
-    marginRight: 14,
-  },
-  linkCopy: {
+  body: {
     flex: 1,
+    padding: 24,
   },
-  linkTitle: {
-    color: colors.primary,
-    fontSize: 18,
+  label: {
+    color: colors.muted,
+    fontSize: 13,
     fontWeight: "700",
+    letterSpacing: 1.5,
+    marginBottom: 14,
+    textTransform: "uppercase",
+  },
+  tiles: {
+    flexDirection: "row",
+    gap: 14,
+  },
+  tile: {
+    borderRadius: 24,
+    flex: 1,
+    minHeight: 170,
+    justifyContent: "flex-end",
+    padding: 18,
+    shadowColor: colors.dark,
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.2,
+    shadowRadius: 10,
+    elevation: 5,
+  },
+  tileCity: {
+    backgroundColor: colors.teal,
+  },
+  tileAbout: {
+    backgroundColor: colors.coral,
+  },
+  tileIcon: {
+    fontSize: 40,
+    marginBottom: 12,
+  },
+  tileTitle: {
+    color: "#FFFFFF",
+    fontSize: 20,
+    fontWeight: "800",
     marginBottom: 4,
   },
-  linkText: {
-    color: colors.secondary,
-    fontSize: 14,
-  },
-  arrow: {
-    color: colors.primary,
-    fontSize: 32,
+  tileHint: {
+    color: "rgba(255,255,255,0.85)",
+    fontSize: 13,
+    lineHeight: 18,
   },
   pressed: {
-    opacity: 0.75,
+    opacity: 0.85,
+    transform: [{ scale: 0.97 }],
   },
 });
